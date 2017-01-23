@@ -7,6 +7,7 @@
 %%% Created : 23. Jan 2017 16:19
 %%%-------------------------------------------------------------------
 -module(leaderboard_table).
+-compile({no_auto_import,[node/0]}).
 -author("regikul").
 
 -behaviour(gen_server).
@@ -15,7 +16,8 @@
 -export([
   start_link/0,
   best_players/0,
-  post_score/2
+  post_score/2,
+  node/0
 ]).
 
 %% gen_server callbacks
@@ -44,6 +46,11 @@ best_players() ->
 -spec post_score(non_neg_integer(), binary()) -> 'ok'.
 post_score(Score, Name) ->
   gen_server:cast({global, ?SERVER}, {post, Score, Name}).
+
+-spec node() -> atom().
+node() ->
+  Pid = global:whereis_name(?SERVER),
+  erlang:node(Pid).
 
 %%%===================================================================
 %%% API
