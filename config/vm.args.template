@@ -1,5 +1,4 @@
--sname leaderboard
-
+-sname {{node_name}}
 -setcookie leaderboard_cookie
 
 +K true
