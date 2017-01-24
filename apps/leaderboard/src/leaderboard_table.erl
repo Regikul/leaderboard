@@ -15,7 +15,7 @@
 %% API
 -export([
   start_link/0,
-  best_players/0,
+  best_players/0, best_players/1,
   post_score/2,
   node/0
 ]).
@@ -40,8 +40,11 @@
 }).
 
 -spec best_players() -> list().
-best_players() ->
-  gen_server:call({global, ?SERVER}, {best, 20}).
+best_players() -> best_players(20).
+
+-spec best_players(pos_integer()) -> list().
+best_players(Amount) ->
+  gen_server:call({global, ?SERVER}, {best, Amount}).
 
 -spec post_score(non_neg_integer(), binary()) -> 'ok'.
 post_score(Score, Name) ->

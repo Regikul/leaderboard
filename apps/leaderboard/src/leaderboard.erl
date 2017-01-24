@@ -11,13 +11,16 @@
 
 %% API
 -export([
-  best/0,
+  best/0, best/1,
   post/2,
   node/0
 ]).
 
 -spec best() -> list().
 best() -> leaderboard_table:best_players().
+
+-spec best(pos_integer()) -> list().
+best(Amount) -> leaderboard_table:best_players(Amount).
 
 -spec post(pos_integer(), binary()) -> ok.
 post(Score, Name) -> leaderboard_table:post_score(Score, Name).
